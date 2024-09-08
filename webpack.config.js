@@ -9,7 +9,7 @@ const  { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
@@ -19,13 +19,6 @@ module.exports = {
     mode: 'production',
     resolve: {
         extensions: ['.js', '.jsx'],
-        alias: {
-            '@pages': path.resolve(__dirname, 'src/pages'),
-            '@components': path.resolve(__dirname, 'src/components'),
-            '@containers': path.resolve(__dirname, 'src/containers'),
-            '@styles': path.resolve(__dirname, 'src/style'),
-            '@assets': path.resolve(__dirname, 'src/assets'),
-        },
     },
     module: {
         rules: [

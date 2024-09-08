@@ -15,13 +15,6 @@ module.exports = {
     mode: 'production',
     resolve: {
         extensions: ['.js', '.jsx'],
-        alias: {
-            '@pages': path.resolve(__dirname, 'src/pages'),
-            '@components': path.resolve(__dirname, 'src/components'),
-            '@containers': path.resolve(__dirname, 'src/containers'),
-            '@styles': path.resolve(__dirname, 'src/style'),
-            '@assets': path.resolve(__dirname, 'src/assets'),
-        },
     },
     module: {
         rules: [

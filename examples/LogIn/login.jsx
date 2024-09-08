@@ -1,24 +1,12 @@
 // React imports
 import React, { useState } from 'react'
 
-// Redux imports
-import { useDispatch } from 'react-redux'
-import { saveUser } from '../../redux/slices/userSlice.js'
-
-// Formik imports
-import { ErrorMessage, Field, Form, Formik } from 'formik'
+import FormContainer from '../../modules/containers/FormContainer.jsx'
 
 // Material UI imports
-import { Button, CircularProgress } from '@mui/material'
-
-// ValidatorSchemas imports
-import { loginValidationSchema } from '../../utils/validationSchemas/login.js'
-
-// Css imports
-import styles from './auth.module.css'
+import { CircularProgress } from '@mui/material'
 
 // Others
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 export default function LoginPage () {
@@ -60,36 +48,13 @@ export default function LoginPage () {
 
   return (
     <>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={() => loginValidationSchema}
-        onSubmit={async (values, { resetForm }) => await handleSubmit(values, resetForm)}
-      >
-        {({ errors, isSubmitting }) => (
-          <Form className={styles.form}>
+      <FormContainer initialValues={initialValues} handleSubmit={handleSubmit} />
 
-            <div>
-              <label htmlFor='email'>E-mail</label>
-              <Field type='text' id='email' name='email' autoComplete='off' />
-              <ErrorMessage name='email' component={() => (<p className={styles.error}>{errors.email}</p>)} />
-            </div>
-            <div>
-              <label htmlFor='password'>Password</label>
-              <Field type='password' id='password' name='password' />
-              <ErrorMessage name='password' component={() => (<p className={styles.error}>{errors.password}</p>)} />
-            </div>
+      {isSubmitting
+        ? <div className={styles.progress}><CircularProgress /> </div>
+        : <button type='submit'>Login</button>}
+      {statusMessage ? <p className={styles.statusError}>{statusMessage}</p> : null}
 
-            <Button onClick={() => navigate('/reset-password')}>
-              Forgot Password
-            </Button>
-
-            {isSubmitting
-              ? <div className={styles.progress}><CircularProgress /> </div>
-              : <button type='submit'>Login</button>}
-            {statusMessage ? <p className={styles.statusError}>{statusMessage}</p> : null}
-          </Form>
-        )}
-      </Formik>
     </>
   )
 }
